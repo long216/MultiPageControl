@@ -20,6 +20,7 @@ public class MultiPageControlManager {
 
     private MultiPageControlManager() {
 
+
     }
 
     public static MultiPageControlManager getInstance() {
