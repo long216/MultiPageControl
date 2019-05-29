@@ -6,4 +6,4 @@
 
 * 不同状态可随意编辑
 
-<img src="effectpicture.png" />
+<img src="imags/effectpicture.png" />
