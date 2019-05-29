@@ -4,6 +4,6 @@
 
 ## 效果图
 
-* In Activity or Fragment 
+* 不同状态可随意编辑
 
 <img src="effectpicture.png" />
