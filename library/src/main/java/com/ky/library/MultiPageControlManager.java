@@ -80,6 +80,8 @@ public class MultiPageControlManager {
         mLoadingAndRetryLayout.setLoadingView(loadingId);
         mLoadingAndRetryLayout.setRetryView(retryId);
 
+        showContent();
+
         return this;
     }
 
