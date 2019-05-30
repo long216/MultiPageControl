@@ -8,13 +8,13 @@ import android.view.ViewGroup;
  *
  */
 public class MultiPageControlManager {
-    public static final int NO_LAYOUT_ID = 0;
+    private static final int NO_LAYOUT_ID = 0;
 
-    public static int BASE_RETRY_LAYOUT_ID = NO_LAYOUT_ID;
-    public static int BASE_EMPTY_LAYOUT_ID = NO_LAYOUT_ID;
-    public static int BASE_LOADING_LAYOUT_ID = NO_LAYOUT_ID;
+    private static int BASE_RETRY_LAYOUT_ID = NO_LAYOUT_ID;
+    private static int BASE_EMPTY_LAYOUT_ID = NO_LAYOUT_ID;
+    private static int BASE_LOADING_LAYOUT_ID = NO_LAYOUT_ID;
 
-    public MultiPageControlLayout mLoadingAndRetryLayout;
+    private MultiPageControlLayout mLoadingAndRetryLayout;
 
 
 
