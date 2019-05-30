@@ -124,3 +124,6 @@ public class MainActivity extends AppCompatActivity
 * setOnEmptyClickListener(final OnLoadingAndRetryListener onEmptyClickListener);
 * setOnEmptyChildClickListener(int id, final OnLoadingAndRetryListener onEmptyChildClickListener);
 * setOnRetryChildClickListener(int id, final OnLoadingAndRetryListener onRetryChildClickListener);
+
+
+如有好的建议或者bug请联系 714093365@qq.com
