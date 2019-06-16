@@ -1,8 +1,13 @@
 package com.ky.library;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,12 +19,13 @@ public class MultiPageControlManager {
     private static int BASE_EMPTY_LAYOUT_ID = NO_LAYOUT_ID;
     private static int BASE_LOADING_LAYOUT_ID = NO_LAYOUT_ID;
 
-    private MultiPageControlLayout mLoadingAndRetryLayout;
 
-
+    private List<View> mContentList;
+    private View mLoadingView;
+    private View mRetryView;
+    private View mEmptyView;
 
     private MultiPageControlManager() {
-
 
     }
 
@@ -41,55 +47,42 @@ public class MultiPageControlManager {
     }
 
 
-    public MultiPageControlManager init(View view) {
+    public MultiPageControlManager init2(ViewGroup viewGroup) {
         if (BASE_LOADING_LAYOUT_ID == NO_LAYOUT_ID || BASE_RETRY_LAYOUT_ID == NO_LAYOUT_ID || BASE_EMPTY_LAYOUT_ID == NO_LAYOUT_ID) {
             throw new IllegalArgumentException(" No default layout or call is set init(Object activityOrFragmentOrView, int loadingId, int retryId, int emptyId)");
         }
-        return init(view, BASE_LOADING_LAYOUT_ID, BASE_RETRY_LAYOUT_ID, BASE_EMPTY_LAYOUT_ID);
+        return init2(viewGroup, BASE_LOADING_LAYOUT_ID, BASE_RETRY_LAYOUT_ID, BASE_EMPTY_LAYOUT_ID);
     }
 
-    public MultiPageControlManager init(View view, int loadingId, int retryId, int emptyId) {
-
-        ViewGroup contentParent = null;
-        Context context;
-        int index = 0;//旧的 主要布局的位置
-        View oldContent;//这是旧的 主要的布局
-
-
-        contentParent = (ViewGroup) (view.getParent());//拿到父容器布局
-        context = view.getContext();
-
-        int childCount = contentParent.getChildCount();//父容器布局的个数
-        //get contentParent
-        oldContent = (View) view;
+    public MultiPageControlManager init2(ViewGroup viewGroup, int loadingId, int retryId, int emptyId) {
+        Context context = viewGroup.getContext();
+        mContentList = new ArrayList<>();
+        int childCount = viewGroup.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            if (contentParent.getChildAt(i) == oldContent) {
-                index = i;
-                break;
-            }
+            View view = viewGroup.getChildAt(i);
+            mContentList.add(view);
         }
 
-        contentParent.removeView(oldContent);//先把主布局移除
-        //setup content layout
-        mLoadingAndRetryLayout = new MultiPageControlLayout(context);
-        ViewGroup.LayoutParams lp = oldContent.getLayoutParams();
-        contentParent.addView(mLoadingAndRetryLayout, index, lp);//把包含4种布局的容器 加入到最顶级布局
-        /*4种布局*/
-        mLoadingAndRetryLayout.setContentView(oldContent);
-        mLoadingAndRetryLayout.setEmptyView(emptyId);
-        mLoadingAndRetryLayout.setLoadingView(loadingId);
-        mLoadingAndRetryLayout.setRetryView(retryId);
+        mLoadingView = LayoutInflater.from(context).inflate(loadingId, viewGroup, false);
+        mRetryView = LayoutInflater.from(context).inflate(retryId, viewGroup, false);
+        mEmptyView = LayoutInflater.from(context).inflate(emptyId, viewGroup, false);
 
-        showContent();
+        mLoadingView.setVisibility(View.GONE);
+        mRetryView.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.GONE);
+
+        viewGroup.addView(mLoadingView);
+        viewGroup.addView(mRetryView);
+        viewGroup.addView(mEmptyView);
 
         return this;
     }
 
     public void setOnRetryClickListener(final OnLoadingAndRetryListener onRetryClickListener) {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.getRetryView().setOnClickListener(new View.OnClickListener() {
+        mRetryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRetryClickListener.onClick();
@@ -98,10 +91,10 @@ public class MultiPageControlManager {
     }
 
     public void setOnEmptyClickListener(final OnLoadingAndRetryListener onEmptyClickListener) {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.getEmptyView().setOnClickListener(new View.OnClickListener() {
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEmptyClickListener.onClick();
@@ -109,11 +102,11 @@ public class MultiPageControlManager {
         });
     }
 
-    public void setOnEmptyChildClickListener(int id, final OnLoadingAndRetryListener onEmptyChildClickListener) {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+    public void setOnEmptyChildClickListener(@IdRes int id, final OnLoadingAndRetryListener onEmptyChildClickListener) {
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.getEmptyView().findViewById(id).setOnClickListener(new View.OnClickListener() {
+        mEmptyView.findViewById(id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEmptyChildClickListener.onClick();
@@ -121,11 +114,11 @@ public class MultiPageControlManager {
         });
     }
 
-    public void setOnRetryChildClickListener(int id, final OnLoadingAndRetryListener onRetryChildClickListener) {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+    public void setOnRetryChildClickListener(@IdRes int id, final OnLoadingAndRetryListener onRetryChildClickListener) {
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.getRetryView().findViewById(id).setOnClickListener(new View.OnClickListener() {
+        mRetryView.findViewById(id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRetryChildClickListener.onClick();
@@ -135,33 +128,45 @@ public class MultiPageControlManager {
 
 
     public void showLoading() {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.showLoading();
+        show(View.GONE, View.VISIBLE, View.GONE, View.GONE);
     }
 
     public void showRetry() {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.showRetry();
+
+        show(View.GONE, View.GONE, View.VISIBLE, View.GONE);
     }
 
     public void showContent() {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.showContent();
+
+        show(View.VISIBLE, View.GONE, View.GONE, View.GONE);
     }
 
     public void showEmpty() {
-        if (mLoadingAndRetryLayout == null) {
-            throw new IllegalArgumentException("Please initialize it first init()");
+        if (mLoadingView == null || mRetryView == null || mEmptyView == null) {
+            throw new IllegalArgumentException("Do not create init()");
         }
-        mLoadingAndRetryLayout.showEmpty();
+
+        show(View.GONE, View.GONE, View.GONE, View.VISIBLE);
     }
 
+
+    private void show(int contentView, int loadingView, int retryView, int emptyView) {
+        for (View view : mContentList) {
+            view.setVisibility(contentView);
+        }
+        mLoadingView.setVisibility(loadingView);
+        mRetryView.setVisibility(retryView);
+        mEmptyView.setVisibility(emptyView);
+    }
 
     public interface OnLoadingAndRetryListener {
         void onClick();

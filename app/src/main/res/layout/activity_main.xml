@@ -36,7 +36,11 @@
             android:onClick="button3"
             android:text="空白状态"/>
 
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="button4"
+            android:text="打开Fragment"/>
 
 
     </LinearLayout>
