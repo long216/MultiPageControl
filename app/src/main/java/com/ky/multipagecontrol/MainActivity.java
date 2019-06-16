@@ -11,7 +11,7 @@ import com.ky.library.MultiPageControlManager;
 
 public class MainActivity extends AppCompatActivity {
 
-   // private MultiPageControlManager multiPageControlManager;
+    private MultiPageControlManager multiPageControlManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,44 +20,44 @@ public class MainActivity extends AppCompatActivity {
 
         RelativeLayout relativeLayout = findViewById(R.id.mainRelativeLayout);
 
-     //   multiPageControlManager = MultiPageControlManager.getInstance().init(relativeLayout,R.layout.base_loading,R.layout.base_retry,R.layout.base_empty);
+        multiPageControlManager = MultiPageControlManager.getInstance().init(relativeLayout,R.layout.base_loading,R.layout.base_retry,R.layout.base_empty);
 
 
     }
 
-//    //加载
-//    public void button1(View view) {
-//        multiPageControlManager.showLoading();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                multiPageControlManager.showContent();
-//            }
-//        },3000);
-//    }
-//
-//    //重试
-//    public void button2(View view) {
-//        multiPageControlManager.showRetry();
-//        multiPageControlManager.setOnRetryChildClickListener(R.id.retryButton, new MultiPageControlManager.OnLoadingAndRetryListener() {
-//            @Override
-//            public void onClick() {
-//                multiPageControlManager.showContent();
-//            }
-//        });
-//    }
-//
-//    //空白状态
-//    public void button3(View view) {
-//        multiPageControlManager.showEmpty();
-//        multiPageControlManager.setOnEmptyClickListener(new MultiPageControlManager.OnLoadingAndRetryListener() {
-//            @Override
-//            public void onClick() {
-//                multiPageControlManager.showContent();
-//            }
-//        });
-//
-//    }
+    //加载
+    public void button1(View view) {
+        multiPageControlManager.showLoading();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                multiPageControlManager.showContent();
+            }
+        },3000);
+    }
+
+    //重试
+    public void button2(View view) {
+        multiPageControlManager.showRetry();
+        multiPageControlManager.setOnRetryChildClickListener(R.id.retryButton, new MultiPageControlManager.OnLoadingAndRetryListener() {
+            @Override
+            public void onClick() {
+                multiPageControlManager.showContent();
+            }
+        });
+    }
+
+    //空白状态
+    public void button3(View view) {
+        multiPageControlManager.showEmpty();
+        multiPageControlManager.setOnEmptyClickListener(new MultiPageControlManager.OnLoadingAndRetryListener() {
+            @Override
+            public void onClick() {
+                multiPageControlManager.showContent();
+            }
+        });
+
+    }
 
     public void button4(View view) {
         Intent intent = new Intent(this,Main2Activity.class);

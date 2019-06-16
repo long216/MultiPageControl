@@ -33,7 +33,7 @@ public class BlankFragment extends Fragment {
         // Inflate the layout for this fragment
         mButton = mInflate.findViewById(R.id.button1);
 
-        multiPageControlManager = MultiPageControlManager.getInstance().init2((ViewGroup) mInflate,R.layout.base_loading,R.layout.base_retry,R.layout.base_empty);
+        multiPageControlManager = MultiPageControlManager.getInstance().init((ViewGroup) mInflate,R.layout.base_loading,R.layout.base_retry,R.layout.base_empty);
 
         multiPageControlManager.showEmpty();
         return mInflate;

@@ -47,14 +47,14 @@ public class MultiPageControlManager {
     }
 
 
-    public MultiPageControlManager init2(ViewGroup viewGroup) {
+    public MultiPageControlManager init(ViewGroup viewGroup) {
         if (BASE_LOADING_LAYOUT_ID == NO_LAYOUT_ID || BASE_RETRY_LAYOUT_ID == NO_LAYOUT_ID || BASE_EMPTY_LAYOUT_ID == NO_LAYOUT_ID) {
             throw new IllegalArgumentException(" No default layout or call is set init(Object activityOrFragmentOrView, int loadingId, int retryId, int emptyId)");
         }
-        return init2(viewGroup, BASE_LOADING_LAYOUT_ID, BASE_RETRY_LAYOUT_ID, BASE_EMPTY_LAYOUT_ID);
+        return init(viewGroup, BASE_LOADING_LAYOUT_ID, BASE_RETRY_LAYOUT_ID, BASE_EMPTY_LAYOUT_ID);
     }
 
-    public MultiPageControlManager init2(ViewGroup viewGroup, int loadingId, int retryId, int emptyId) {
+    public MultiPageControlManager init(ViewGroup viewGroup, int loadingId, int retryId, int emptyId) {
         Context context = viewGroup.getContext();
         mContentList = new ArrayList<>();
         int childCount = viewGroup.getChildCount();
