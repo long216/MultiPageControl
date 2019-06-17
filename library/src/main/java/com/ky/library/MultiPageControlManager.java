@@ -53,7 +53,11 @@ public class MultiPageControlManager {
         }
         return init(viewGroup, BASE_LOADING_LAYOUT_ID, BASE_RETRY_LAYOUT_ID, BASE_EMPTY_LAYOUT_ID);
     }
-
+    /**
+     * @param loadingId 加载布局
+     * @param retryId   重试布局
+     * @param emptyId   空白布局(没有数据)
+     */
     public MultiPageControlManager init(ViewGroup viewGroup, int loadingId, int retryId, int emptyId) {
         Context context = viewGroup.getContext();
         mContentList = new ArrayList<>();

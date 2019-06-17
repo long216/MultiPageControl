@@ -25,7 +25,7 @@
 步骤2.添加依赖项
 
 	dependencies {
-	        implementation 'com.github.liulong123:MultiPageControl:1.0.1'
+	        implementation 'com.github.liulong123:MultiPageControl:1.0.2'
 	}
 
 
@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity
 
 只需要在onCreate中调用`MultiPageControlManager.getInstance().init()`即可。
 
-* 在Fragment中与Activity中用法一致。需注意的是因Fragment生命周期问题建议在 **在onCreateView方法之后执行初始化**
+Fragment中调用类似
 
-* 可为任何View添加，只需要将对应的View传入第一个参数即可。
+* 可为任何ViewGroup添加，只需要将对应的View传入第一个参数即可。
 
 点击事件：
 
