@@ -25,7 +25,7 @@
 步骤2.添加依赖项
 
 	dependencies {
-	        implementation 'com.github.liulong123:MultiPageControl:1.0.2'
+	        implementation 'com.github.long216:MultiPageControl:1.0.2'
 	}
 
 
